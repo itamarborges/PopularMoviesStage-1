@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Popular Movies, Stage 1</string>
+    <string name="sort_criteria">Sort Criteria:</string>
+
+    <string name="movie_title">Title:</string>
+    <string name="movie_release_date">Release Date:</string>
+    <string name="movie_vote_average">Vote Average:</string>
+    <string name="movie_plot">Plot:</string>
+
+    <string-array name="order_by_options">
+        <item>Highest rated</item>
+        <item>Most Popular</item>
+    </string-array>
+</resources>
