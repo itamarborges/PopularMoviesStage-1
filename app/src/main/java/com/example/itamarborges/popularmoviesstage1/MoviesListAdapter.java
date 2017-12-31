@@ -34,7 +34,6 @@ public class MoviesListAdapter extends RecyclerView.Adapter<MoviesListAdapter.Mo
 
     private List<MovieCover> mMoviesCover;
 
-
     public MoviesListAdapter(List<MovieCover> moviesCover) {
         mMoviesCover = moviesCover;
     }

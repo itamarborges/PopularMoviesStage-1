@@ -19,9 +19,17 @@ public class MoviesAsyncTask extends AsyncTask<URL, Void, List<MovieCover>> {
 
     private static final String TAG = MoviesAsyncTask.class.getSimpleName();
     MoviesListAdapter mMoviesListAdapter;
+    ShowElements mShowElements;
 
-    public MoviesAsyncTask(MoviesListAdapter moviesListAdapter) {
+    public MoviesAsyncTask(MoviesListAdapter moviesListAdapter, ShowElements showElements) {
         mMoviesListAdapter = moviesListAdapter;
+        mShowElements = showElements;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mShowElements.showProgressBar();
     }
 
     @Override
@@ -45,7 +53,14 @@ public class MoviesAsyncTask extends AsyncTask<URL, Void, List<MovieCover>> {
     protected void onPostExecute(List<MovieCover> movieCovers) {
         super.onPostExecute(movieCovers);
 
-        mMoviesListAdapter.setMoviesCover(movieCovers);
-        mMoviesListAdapter.notifyDataSetChanged();
+        if (movieCovers != null) {
+
+            mMoviesListAdapter.setMoviesCover(movieCovers);
+            mMoviesListAdapter.notifyDataSetChanged();
+
+            mShowElements.showMoviesList();
+        } else {
+            mShowElements.showErrorMessage();
+        }
     }
 }
