@@ -12,15 +12,18 @@ import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsAsyncTask.MovieLoad {
 
     public final static String INTENT_KEY_ID = "key_id";
 
-    private TextView mMovieTitle;
-    private TextView mMovieReleaseDate;
-    private TextView mMovieVoteAverage;
-    private TextView mMoviePlot;
-    private ImageView mMovieCover;
+    @BindView(R.id.tv_movie_title) TextView mMovieTitle;
+    @BindView(R.id.tv_movie_release_date) TextView mMovieReleaseDate;
+    @BindView(R.id.tv_movie_vote_average) TextView mMovieVoteAverage;
+    @BindView(R.id.tv_movie_plot) TextView mMoviePlot;
+    @BindView(R.id.iv_movie_poster) ImageView mMovieCover;
 
     private int movieId;
 
@@ -28,12 +31,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-
-        mMovieTitle = findViewById(R.id.tv_movie_title);
-        mMovieReleaseDate = findViewById(R.id.tv_movie_release_date);
-        mMovieVoteAverage = findViewById(R.id.tv_movie_vote_average);
-        mMoviePlot = findViewById(R.id.tv_movie_plot);
-        mMovieCover = findViewById(R.id.iv_movie_poster);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
 

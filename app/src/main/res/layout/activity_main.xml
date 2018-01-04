@@ -29,27 +29,29 @@
         android:id="@+id/rv_movies_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
-        android:layout_height="42dp"
         android:layout_width="42dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:visibility="invisible" />
+        android:visibility="visible"/>
 
     <LinearLayout
         android:id="@+id/layout_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_error_message"
             android:layout_width="match_parent"
-            android:text="@string/error_message"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/error_message"/>
 
         <Button
             android:id="@+id/btn_try_again"

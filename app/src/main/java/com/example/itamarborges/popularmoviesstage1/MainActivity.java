@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
+
 interface ShowElements {
     void showProgressBar();
     void showErrorMessage();
@@ -31,42 +36,28 @@ interface ShowElements {
 public class MainActivity extends AppCompatActivity implements ShowElements {
 
     private MoviesListAdapter mAdapter;
-    private RecyclerView mMoviesCoverList;
-    private Spinner mSpinnerSort;
-    private Button mBtnTryAgain;
-    private ProgressBar mProgressBar;
-    private LinearLayout mErrorLayout;
+
+    @BindView(R.id.rv_movies_cover) RecyclerView mMoviesCoverList;
+    @BindView(R.id.sp_sort_criteria) Spinner mSpinnerSort;
+    @BindView(R.id.btn_try_again) Button mBtnTryAgain;
+    @BindView(R.id.pb_loading_indicator) ProgressBar mProgressBar;
+    @BindView(R.id.layout_error) LinearLayout mErrorLayout;
+
+    @OnClick(R.id.btn_try_again)
+    public void btnTryAgain() {
+        makeMoviesQuery(mSpinnerSort.getSelectedItemPosition());
+    }
+
+    @OnItemSelected(R.id.sp_sort_criteria)
+    public void spinnerItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        makeMoviesQuery(i);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mMoviesCoverList = findViewById(R.id.rv_movies_cover);
-        mSpinnerSort = findViewById(R.id.sp_sort_criteria);
-        mBtnTryAgain = findViewById(R.id.btn_try_again);
-        mProgressBar = findViewById(R.id.pb_loading_indicator);
-        mErrorLayout = findViewById(R.id.layout_error);
-
-        mBtnTryAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                makeMoviesQuery(mSpinnerSort.getSelectedItemPosition());
-            }
-        });
-
-        mSpinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                makeMoviesQuery(i);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        ButterKnife.bind(this);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mMoviesCoverList.setLayoutManager(layoutManager);
@@ -86,22 +77,22 @@ public class MainActivity extends AppCompatActivity implements ShowElements {
 
     @Override
     public void showProgressBar() {
-        mMoviesCoverList.setVisibility(View.INVISIBLE);
+        mMoviesCoverList.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
-        mErrorLayout.setVisibility(View.INVISIBLE);
+        mErrorLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void showErrorMessage() {
-        mMoviesCoverList.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
+        mMoviesCoverList.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
         mErrorLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showMoviesList() {
         mMoviesCoverList.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mErrorLayout.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.GONE);
+        mErrorLayout.setVisibility(View.GONE);
     }
 }
